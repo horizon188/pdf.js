@@ -1062,10 +1062,47 @@ class PDFPageView {
     const renderTask = (this.renderTask = pdfPage.render(renderContext));
     renderTask.onContinue = renderContinueCallback;
 
+    function createWaterMark({
+      ctx,
+      canvas,
+      fontText = "",
+      fontFamily = "microsoft yahei",
+      fontSize = 30,
+      fontcolor = "rgba(218, 218, 218, 0.5)",
+      rotate = 35,
+      textAlign = "left",
+    }) {
+      // 保存当前状态
+      ctx.save();
+      const canvasW = canvas.width;
+      const canvasH = canvas.height;
+
+      const calfontSize = (fontSize * canvasW) / 800; // 根据canvas大小，计算字体大小
+      ctx.font = `${calfontSize}px ${fontFamily}`;
+      ctx.translate(50, 50);
+      ctx.rotate((-rotate * Math.PI) / 180);
+      ctx.translate(-canvasW / 5, -50); // 中心点偏移
+      ctx.fillStyle = fontcolor;
+      ctx.textAlign = textAlign;
+      ctx.textBaseline = "Middle";
+
+      ctx.fillText(fontText, 0, canvasH / 4);
+      ctx.fillText(fontText, 0, canvasH / 2);
+      ctx.fillText(fontText, 0, (canvasH * 4) / 5);
+
+      ctx.fillText(fontText, canvasW / 2, canvasH / 2);
+      ctx.fillText(fontText, canvasW / 2, (canvasH * 3) / 4);
+      // 恢复到最近一次调用 save() 时保存的状态
+      ctx.restore();
+    }
+
     const resultPromise = renderTask.promise.then(
       async () => {
         showCanvas?.(true);
         await this.#finishRenderTask(renderTask);
+
+        // 水印
+        createWaterMark({ fontText: "学员到此一游", canvas, ctx });
 
         this.#renderTextLayer();
 

@@ -188,26 +188,24 @@ class PDFPrintService {
   }
 
   useRenderedPage() {
-    this.throwIfInactive();
-    const img = document.createElement("img");
-    const scratchCanvas = this.scratchCanvas;
-    if ("toBlob" in scratchCanvas) {
-      scratchCanvas.toBlob(function (blob) {
-        img.src = URL.createObjectURL(blob);
-      });
-    } else {
-      img.src = scratchCanvas.toDataURL();
-    }
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "printedPage";
-    wrapper.append(img);
-    this.printContainer.append(wrapper);
-
-    return new Promise(function (resolve, reject) {
-      img.onload = resolve;
-      img.onerror = reject;
-    });
+    // this.throwIfInactive();
+    // const img = document.createElement("img");
+    // const scratchCanvas = this.scratchCanvas;
+    // if ("toBlob" in scratchCanvas) {
+    //   scratchCanvas.toBlob(function (blob) {
+    //     img.src = URL.createObjectURL(blob);
+    //   });
+    // } else {
+    //   img.src = scratchCanvas.toDataURL();
+    // }
+    // const wrapper = document.createElement("div");
+    // wrapper.className = "printedPage";
+    // wrapper.append(img);
+    // this.printContainer.append(wrapper);
+    // return new Promise(function (resolve, reject) {
+    //   img.onload = resolve;
+    //   img.onerror = reject;
+    // });
   }
 
   performPrint() {
