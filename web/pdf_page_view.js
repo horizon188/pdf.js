@@ -1063,35 +1063,41 @@ class PDFPageView {
     function createWaterMark({
       ctx,
       canvas,
-      fontText = "",
-      fontFamily = "microsoft yahei",
+      fontText = '',
+      fontFamily = 'microsoft yahei',
       fontSize = 30,
-      fontcolor = "rgba(218, 218, 218, 0.5)",
-      rotate = 35,
-      textAlign = "left",
+      fontcolor = 'rgba(218, 218, 218, 0.5)',
+      rotate = 30,
+      textAlign = 'left'
     }) {
       // 保存当前状态
-      ctx.save();
-      const canvasW = canvas.width;
-      const canvasH = canvas.height;
+      ctx.save()
 
-      const calfontSize = (fontSize * canvasW) / 800; // 根据canvas大小，计算字体大小
-      ctx.font = `${calfontSize}px ${fontFamily}`;
-      ctx.translate(50, 50);
-      ctx.rotate((-rotate * Math.PI) / 180);
-      ctx.translate(-canvasW / 5, -50); // 中心点偏移
-      ctx.fillStyle = fontcolor;
-      ctx.textAlign = textAlign;
-      ctx.textBaseline = "Middle";
+      const canvasW = canvas.width
+      const calfontSize = (fontSize * canvasW) / 800 // 800是页面初始化的宽度（类似设计稿那样计算响应式）
+      ctx.font = `${calfontSize}px ${fontFamily}`
+      ctx.fillStyle = fontcolor
+      ctx.textAlign = textAlign
+      ctx.textBaseline = 'Middle'
 
-      ctx.fillText(fontText, 0, canvasH / 4);
-      ctx.fillText(fontText, 0, canvasH / 2);
-      ctx.fillText(fontText, 0, (canvasH * 4) / 5);
+      // 添加四个水印
+      const pH = canvas.height / 4
+      const pW = canvas.width / 4
+      const positions = [
+        { x: pW, y: pH },
+        { x: 3 * pW, y: pH },
+        { x: pW *1.3, y: 3 * pH },
+        { x: 3 * pW, y: 3 * pH }
+      ];
+      positions.forEach((pos) => {
+          ctx.save();
+          ctx.translate(pos.x, pos.y);
+          ctx.rotate(-rotate * Math.PI / 180);
+          ctx.fillText(fontText, 0, 0);
+          ctx.restore();
+        });
 
-      ctx.fillText(fontText, canvasW / 2, canvasH / 2);
-      ctx.fillText(fontText, canvasW / 2, (canvasH * 3) / 4);
-      // 恢复到最近一次调用 save() 时保存的状态
-      ctx.restore();
+      ctx.restore()
     }
 
     const resultPromise = renderTask.promise.then(
