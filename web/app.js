@@ -2854,10 +2854,10 @@ function webViewerKeyDown(evt) {
     // either CTRL or META key with optional SHIFT.
     switch (evt.keyCode) {
       case 70: // f
-        if (!PDFViewerApplication.supportsIntegratedFind && !evt.shiftKey) {
-          PDFViewerApplication.findBar?.open();
-          handled = true;
-        }
+        // if (!PDFViewerApplication.supportsIntegratedFind && !evt.shiftKey) {
+        //   PDFViewerApplication.findBar?.open();
+        //   handled = true;
+        // }
         break;
       case 71: // g
         if (!PDFViewerApplication.supportsIntegratedFind) {
@@ -2923,9 +2923,9 @@ function webViewerKeyDown(evt) {
     if (cmd === 1 || cmd === 8) {
       switch (evt.keyCode) {
         case 83: // s
-          eventBus.dispatch("download", { source: window });
-          handled = true;
-          break;
+          // eventBus.dispatch("download", { source: window });
+          // handled = true;
+          // break;
 
         case 79: // o
           if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {

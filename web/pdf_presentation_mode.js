@@ -223,10 +223,16 @@ class PDFPresentationMode {
       this.#args = null;
     }, 0);
 
+    console.log('退出全屏')
+
     this.#removeWindowListeners();
     this.#hideControls();
     this.#resetMouseScrollState();
     this.contextMenuOpen = false;
+    setTimeout(() =>{
+      console.log('触发')
+      this.eventBus.dispatch("zoomreset");
+    })
   }
 
   #mouseDown(evt) {

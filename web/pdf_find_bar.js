@@ -177,6 +177,7 @@ class PDFFindBar {
   }
 
   close() {
+    console.log("退出全屏");
     if (!this.opened) {
       return;
     }
