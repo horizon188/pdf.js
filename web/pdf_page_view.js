@@ -438,23 +438,21 @@ class PDFPageView {
   }
 
   async #renderTextLayer() {
-    if (!this.textLayer) {
-      return;
-    }
-
-    let error = null;
-    try {
-      await this.textLayer.render(this.viewport);
-    } catch (ex) {
-      if (ex instanceof AbortException) {
-        return;
-      }
-      console.error(`#renderTextLayer: "${ex}".`);
-      error = ex;
-    }
-    this.#dispatchLayerRendered("textlayerrendered", error);
-
-    this.#renderStructTreeLayer();
+    // if (!this.textLayer) {
+    //   return;
+    // }
+    // let error = null;
+    // try {
+    //   await this.textLayer.render(this.viewport);
+    // } catch (ex) {
+    //   if (ex instanceof AbortException) {
+    //     return;
+    //   }
+    //   console.error(`#renderTextLayer: "${ex}".`);
+    //   error = ex;
+    // }
+    // this.#dispatchLayerRendered("textlayerrendered", error);
+    // this.#renderStructTreeLayer();
   }
 
   /**
