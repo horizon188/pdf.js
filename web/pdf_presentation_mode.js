@@ -221,18 +221,21 @@ class PDFPresentationMode {
         };
       }
       this.#args = null;
+      setTimeout(() =>{
+        this.eventBus.dispatch("scalechanged", {
+          source: this,
+          value: "page-fit",
+        });
+      },200)
     }, 0);
 
-    console.log('退出全屏')
 
     this.#removeWindowListeners();
     this.#hideControls();
     this.#resetMouseScrollState();
     this.contextMenuOpen = false;
-    setTimeout(() =>{
-      console.log('触发')
-      this.eventBus.dispatch("zoomreset");
-    })
+
+
   }
 
   #mouseDown(evt) {
