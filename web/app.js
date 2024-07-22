@@ -2925,8 +2925,8 @@ function webViewerKeyDown(evt) {
       switch (evt.keyCode) {
         case 83: // s
           // eventBus.dispatch("download", { source: window });
-          // handled = true;
-          // break;
+          handled = true;
+          break;
 
         case 79: // o
           if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
