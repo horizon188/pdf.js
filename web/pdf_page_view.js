@@ -38,6 +38,7 @@ import {
   OutputScale,
   RenderingStates,
   TextLayerMode,
+  parseQueryString
 } from "./ui_utils.js";
 import { AnnotationEditorLayerBuilder } from "./annotation_editor_layer_builder.js";
 import { AnnotationLayerBuilder } from "./annotation_layer_builder.js";
@@ -1063,7 +1064,7 @@ class PDFPageView {
     function createWaterMark({
       ctx,
       canvas,
-      fontText = '',
+      fontText = '默认水印',
       fontFamily = 'microsoft yahei',
       fontSize = 30,
       fontcolor = 'rgba(218, 218, 218, 0.5)',
@@ -1105,8 +1106,12 @@ class PDFPageView {
         showCanvas?.(true);
         await this.#finishRenderTask(renderTask);
 
-        // 水印
-        createWaterMark({ fontText: "学员到此一游", canvas, ctx });
+        //
+        const queryString = document.location.search.substring(1);
+        const params = parseQueryString(queryString);
+        let waterMark = params.get("watermark") ?? '默认水印';
+
+        createWaterMark({ fontText: waterMark, canvas, ctx });
 
         this.#renderTextLayer();
 
