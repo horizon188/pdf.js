@@ -557,7 +557,8 @@ const PDFViewerApplication = {
         cursorToolOnLoad: AppOptions.get("cursorToolOnLoad"),
       });
     }
-
+    console.log("appConfig.toolbar", appConfig.toolbar);
+    console.log("eventBus", eventBus);
     if (appConfig.toolbar) {
       if (
         typeof PDFJSDev === "undefined"
@@ -1156,6 +1157,10 @@ const PDFViewerApplication = {
     // a message and change PdfjsChild.sys.mjs to take it into account.
     const { classList } = this.appConfig.appContainer;
     classList.add("wait");
+    console.log(
+      "this.pdfDocument?.annotationStorage.size > 0",
+      this.pdfDocument?.annotationStorage.size > 0
+    );
     await (this.pdfDocument?.annotationStorage.size > 0
       ? this.save(options)
       : this.download(options));
@@ -2481,7 +2486,7 @@ function webViewerPageNumberChanged(evt) {
   }
 }
 function webViewerScaleChanged(evt) {
-  console.log('evt',evt);
+  console.log("evt", evt);
   PDFViewerApplication.pdfViewer.currentScaleValue = evt.value;
 }
 function webViewerRotateCw() {

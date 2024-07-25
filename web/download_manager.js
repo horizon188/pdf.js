@@ -106,19 +106,19 @@ class DownloadManager {
   }
 
   download(data, url, filename, _options) {
-    let blobUrl;
-    if (data) {
-      blobUrl = URL.createObjectURL(
-        new Blob([data], { type: "application/pdf" })
-      );
-    } else {
-      if (!createValidAbsoluteUrl(url, "http://example.com")) {
-        console.error(`download - not a valid URL: ${url}`);
-        return;
-      }
-      blobUrl = url + "#pdfjs.action=download";
-    }
-    download(blobUrl, filename);
+    // let blobUrl;
+    // if (data) {
+    //   blobUrl = URL.createObjectURL(
+    //     new Blob([data], { type: "application/pdf" })
+    //   );
+    // } else {
+    //   if (!createValidAbsoluteUrl(url, "http://example.com")) {
+    //     console.error(`download - not a valid URL: ${url}`);
+    //     return;
+    //   }
+    //   blobUrl = url + "#pdfjs.action=download";
+    // }
+    // download(blobUrl, filename);
   }
 }
 
